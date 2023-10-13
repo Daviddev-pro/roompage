@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý ca học</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Quản lý ca học</h1>
+    <div class="container">
+        <aside>
+            <div class="sidebar">
+                <ul id="days-list">
+                    <!-- JavaScript sẽ thêm các ngày vào đây -->
+                </ul>
+            </div>
+        </aside>
+    
+        <main>
+            <!-- JavaScript sẽ thêm các sections tương ứng với các ngày ở đây -->
+        </main>
+    </div>
+    <script>
+        const daysList = document.getElementById('days-list');
+        const main = document.querySelector('main');
+
+        // Lấy ngày hôm nay
+        const today = new Date();
+
+        // Tạo danh sách các ngày trong tuần bắt đầu từ hôm nay
+        const daysOfWeek = ["Chủ Nhật", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"];
+        const todayIndex = today.getDay(); // Lấy số thứ tự của ngày trong tuần (0: Chủ Nhật, 1: Thứ 2, ...)
+        const daysStartingFromToday = daysOfWeek.slice(todayIndex).concat(daysOfWeek.slice(0, todayIndex));
+
+        // Thêm các ngày vào danh sách
+        daysStartingFromToday.forEach((day) => {
+            const listItem = document.createElement('li');
+            listItem.classList.add('day');
+            const dayNumber = today.getDate();
+            const month = today.getMonth() + 1;
+            const year = today.getFullYear().toString().slice(-2);
+            listItem.textContent = `${dayNumber < 10 ? '0' : ''}${dayNumber}/${month < 10 ? '0' : ''}${month}/${year}`;
+            listItem.setAttribute('data-target', day);
+            daysList.appendChild(listItem);
+
+            today.setDate(today.getDate() + 1); // Tăng ngày để lấy ngày tiếp theo
+        });
+
+        // Tạo sections tương ứng với các ngày
+        daysStartingFromToday.forEach((day) => {
+            const section = document.createElement('section');
+            section.id = day;
+            section.classList.add('timeslots');
+            
+            const strong = document.createElement('strong');
+            strong.textContent = day;
+            section.appendChild(strong);
+
+            for (let i = 1; i <= 6; i++) {
+                const timeslot = document.createElement('div');
+                timeslot.classList.add('timeslot');
+                timeslot.id = `${day}-slot-${i}`;
+                timeslot.textContent = `Ca ${i}`;
+                section.appendChild(timeslot);
+            }
+
+            main.appendChild(section);
+        });
+
+        // Xử lý sự kiện khi ngày được chọn
+        const days = document.querySelectorAll('.day');
+
+        days.forEach((day) => {
+            day.addEventListener('click', () => {
+                const target = day.getAttribute('data-target');
+                const sections = document.querySelectorAll('.timeslots');
+    
+                sections.forEach((section) => {
+                    if (section.id === target) {
+                        section.classList.add('active');
+                    } else {
+                        section.classList.remove('active');
+                    }
+                });
+    
+                // Loại bỏ lớp CSS "selected" từ tất cả các ngày
+                days.forEach((d) => d.classList.remove('selected'));
+    
+                // Đặt lớp CSS "selected" cho ngày được chọn
+                day.classList.add('selected');
+            });
+        });
+
+        // Xử lý sự kiện khi một slot được nhấn
+        const timeslots = document.querySelectorAll('.timeslot');
+    
+        timeslots.forEach((slot) => {
+            slot.addEventListener('click', () => {
+                if (slot.classList.contains('available')) {
+                    slot.classList.remove('available');
+                } else {
+                    slot.classList.add('available');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

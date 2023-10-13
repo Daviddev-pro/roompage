@@ -1,0 +1,132 @@
+:root {
+    --color-primary: #6C9BCF;
+    --color-white: #fff;
+    --color-dark: #363949;
+    --color-background: #f6f6f9;
+
+    --border-radius-1: 0.4rem;
+
+    --box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    border: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 20px;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    font-size: 0.88rem;
+    user-select: none;
+    overflow-x: hidden;
+    color: var(--color-dark);
+    background-color: var(--color-background);
+}
+
+a {
+    color: var(--color-dark);
+}
+
+h1 {
+    font-weight: 800;
+    font-size: 1.8rem;
+}
+
+.container {
+    display: grid;
+    width: 96%;
+    margin: 0 auto;
+    gap: 1.8rem;
+    grid-template-columns: 12rem auto 23rem;
+}
+
+aside {
+    height: 100vh;
+}
+
+aside .sidebar {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-white);
+    box-shadow: var(--box-shadow);
+    border-radius: 15px;
+    height: 60vh;
+    position: relative;
+    top: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+aside ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+aside li {
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+}
+
+.timeslot {
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius-1);
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.timeslot:hover {
+    background-color: #555;
+    transform: scale(1.05);
+}
+
+.timeslot.available {
+    background-color: #3e65a0;
+    color: #fff;
+}
+
+.timeslots {
+    display: none;
+}
+
+.timeslots.active {
+    display: block;
+}
+
+.day {
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius-1);
+}
+
+.day:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+.day.selected {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
